@@ -15,4 +15,4 @@ SELECT * FROM skaters;
 
 --usuario de prueba
 INSERT INTO skaters (email, nombre, password, anos_experiencia, especialidad, foto, estado)
-VALUES ('gerald@heyarnold.cl', 'Gerald Johanssen', '123456', 20, 'Turn 900', 'gerald.jpg', true);
+VALUES ('pipe@gmail.com', 'Pipe Parra', '123456', 20, 'Turn 900', 'gerald.jpg', true);

@@ -56,6 +56,7 @@ app.get("/", (req, res) => {
         .then(respuesta => {
             res.render("index", {
                 usuarios: respuesta
+                
             })
         })
         .catch(error => {
@@ -172,3 +173,4 @@ app.get("/logout", (req, res) => {
 app.get("*", (req, res) => {
     res.render("404");
 })
+

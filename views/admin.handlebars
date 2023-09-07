@@ -1,5 +1,13 @@
-<h1>Skate Park</h1>
-
+<div class="container" style="padding-top:20px !important;">
+<h1 style="padding-top:20px !important;">Skate Park</h1>
+<style>
+    .img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        display: block;
+    }
+</style>
 <div class="py-4">
   
     
@@ -22,7 +30,7 @@
                 <tr>
                     {{!-- utilizando this, se traen las respuestas desde la consulta sql en el orden que necesite imprimir. --}}
                     <th scope="row">{{this.id}}</th>
-                    <td><div><img class='img' id="fotoSkater" src="assets/img/{{this.foto}}"></div></td>
+                    <td><div class="img1"><img class='img' id="fotoSkater" src="assets/img/{{this.foto}}"></div></td>
                     <td>{{this.nombre}}</td>
                     <td>{{this.anos_experiencia}}</td>
                     <td>{{this.especialidad}}</td>
@@ -42,7 +50,7 @@
         </tbody>
     </table>
 </div>
-
+</div>
 <script>
     /* función que tendra como parametros, el id del usuario y elemento que es el check si esta activo o no. */
     const cambiarEstado = (id, elemento) => {

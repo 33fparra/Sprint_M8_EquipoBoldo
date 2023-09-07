@@ -1,4 +1,16 @@
-<h1>Skate Park</h1>
+<div class="container">
+<style>
+    .img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        display: block;
+    }
+</style>
+
+
+
+<h1 style="padding-top:20px !important;">Skate Park</h1>
 
 <div class="py-4">
     <h2>Lista de participantes</h2>
@@ -24,7 +36,7 @@
                     {{!-- utilizando this, traigo las respuestas de la consulta sql en el orden que necesite imprimirlos. --}}
                     <th scope="row">{{this.id}}</th>
                     {{!-- <td><div></div></td> --}}
-                    <td><div><img class='img' id="fotoSkater" src="assets/img/{{this.foto}}"></div></td>
+                    <td><div id="fotoSkater"><img class='img' id="fotoSkater" src="assets/img/{{this.foto}}"></div></td>
                     <td>{{this.nombre}}</td>
                     <td>{{this.anos_experiencia}}</td>
                     <td>{{this.especialidad}}</td>
@@ -42,4 +54,5 @@
     </table>
     <a href="/login">INICIAR SESION</a> |
     <a href="/registro">REGISTRARME</a>
+</div>
 </div>

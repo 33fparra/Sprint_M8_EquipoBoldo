@@ -101,7 +101,7 @@ Requerimientos:
 1. Crear una API REST con el Framework Express (3pts)
 2. Servir contenido dinámico con express-handlebars(3pts)
 3. Ofrecer la funcionalidad Upload File con express-fileupload (2pts)
-4. Implementarseguridad y restricción de recursos o contenido con JWT (2pts)
+4. Implementarseguridad y restricción de recursos o contenido con JWT (2pts) 
 
 
 <br>

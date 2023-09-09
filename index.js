@@ -178,9 +178,6 @@ app.get("/admin", verificarToken, async (req, res) => {
 
 /* Ruta /admin para actualizar el estado de los skaters. */
 app.put('/admin', async (req, res) => {
-    if (req.body.usuario.roles !== 'ADMIN') { //aca hacemos el filtro para actualizar
-        return res.status(403).send({ message: 'Acceso denegado' });
-    }
     const { estado, id } = req.body;
 
     await actualizarEstado(estado, id)

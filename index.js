@@ -67,8 +67,7 @@ app.get("/", (req, res) => {
         .then(respuesta => {
             res.render("index", {
                 usuarios: respuesta
-                
-            })
+                        })
         })
         .catch(error => {
             res.status(500);
@@ -96,7 +95,7 @@ app.post("/login", (req, res) => {
         const rol = req.session.roles
         // console.log(skater)
         res.send({token: token, rol});
-        console.log(req.headers);    
+        //console.log(req.headers);    
         })
         .catch(error => {
             res.status(500);

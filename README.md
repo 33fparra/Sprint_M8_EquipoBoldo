@@ -1,11 +1,9 @@
-<img src="public/images/boldoMedio.png" align="right" />
+<img src="public/assets/img/boldoMedio.png" align="right" />
  <h1 align= left ><b>Sprint M8 / EquipoBoldo</b> <img src = "https://media.giphy.com/media/gF2m2JOyGReppog8hU/giphy.gif" width = 80px></h1>
 
 <br>
 
 <h2><b>Sprint</b> <img src ="https://media.giphy.com/media/RIGGWvHpHhtQqJN8Hx/giphy.gif" width = 50px></h2>
-
-📝 
 
 La Municipalidad de Santiago, ha organizado una competencia de Skate para impulsar el nivel deportivo de los
 jóvenes que desean representar a Chile en los X Games próximos, y han iniciado con la gestión para desarrollar la
@@ -108,7 +106,8 @@ Requerimientos:
 
 <h2><b>Base de Datos</b> <img src ="https://media.giphy.com/media/EK5nB6wQKKN86j7GWx/giphy.gif" width = 50px></h2>
 
-![Foto de BD]()
+<img src="public/assets/img/bd.png" align="center" />
+
 
 <br>
 
@@ -130,5 +129,5 @@ Requerimientos:
 
 
 ### Este proyecto está bajo la licencia ADALID.
-<img src="public/images/boldoMedio.png" align="right" />
+<img src="public/assets/img/boldoMedio.png" align="right" />
 

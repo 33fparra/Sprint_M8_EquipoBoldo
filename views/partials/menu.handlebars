@@ -1,10 +1,17 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <style>
-        #adminLink, #userLink {display: none;}
+        #adminLink,
+        #userLink {
+            display: none;
+        }
+
+        #btnCerrar {
+            display: none;
+        }
     </style>
     <a class="navbar-brand" href="#">Skate Park</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -13,12 +20,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-            
+
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin" id="adminLink">Administrar</a>
             </li>
-            
+
 
 
             <li class="nav-item">
@@ -34,7 +41,7 @@
                 <a class="nav-link" href="/login" id="btnLogin">Login</a>
             </li>
             <li class="nav-item" id="btnCerrar">
-                <a type="button" class="btn btn-outline-warning" href="/logout" >
+                <a type="button" class="btn btn-outline-warning" href="/logout">
                     Cerrar Sesión
                 </a>
             </li>
@@ -45,7 +52,7 @@
 {{!-- se hace un llamado al codigo JS para mostrar la alerta del cierre de sesion. --}}
 <script src="/assets/js/cerrarSesion.js"></script>
 <script>
-    document.getElementById('adminLink').addEventListener('click', function(e) {
+    document.getElementById('adminLink').addEventListener('click', function (e) {
         e.preventDefault(); // Prevenir la acción por defecto del enlace
 
         const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
@@ -57,7 +64,7 @@
             alert('Por favor, inicie sesión primero.');
         }
     });
-    document.getElementById('userLink').addEventListener('click', function(e) {
+    document.getElementById('userLink').addEventListener('click', function (e) {
         e.preventDefault(); // Prevenir la acción por defecto del enlace
 
         const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
@@ -69,17 +76,29 @@
             alert('Por favor, inicie sesión primero.');
         }
     });
-//oculto con css pestanas de menu
-        document.addEventListener('DOMContentLoaded', function () {
-            const rol = localStorage.getItem('rol') || sessionStorage.getItem('rol');
+    //oculto con css pestanas de menu
+    document.addEventListener('DOMContentLoaded', function () {
+        const rol = localStorage.getItem('rol') || sessionStorage.getItem('rol');
 
-            if (rol) {
-                document.getElementById('userLink').style.display = 'block'; // Mostrar siempre para usuarios logueados
+        if (rol) {
+            document.getElementById('userLink').style.display = 'block'; // Mostrar siempre para usuarios logueados
 
-                if (rol === 'ADMIN') {
-                    document.getElementById('adminLink').style.display = 'block';
-                }
+            if (rol === 'ADMIN') {
+                document.getElementById('adminLink').style.display = 'block';
             }
-        });
+        }
+    });
+    //boton cerrar sesion
+    document.addEventListener('DOMContentLoaded', function () {
+        const rol = localStorage.getItem('rol') || sessionStorage.getItem('rol');
 
+        if (rol) {
+            document.getElementById('userLink').style.display = 'block'; // Mostrar siempre para usuarios logueados
+            document.getElementById('btnCerrar').style.display = 'block'; // Mostrar el botón de cerrar sesión
+
+            if (rol === 'ADMIN') {
+                document.getElementById('adminLink').style.display = 'block';
+            }
+        }
+    });
 </script>

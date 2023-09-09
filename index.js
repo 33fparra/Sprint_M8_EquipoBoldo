@@ -62,7 +62,7 @@ app.set("views", "./views")
 
 /* Ruta raiz del programa. */
 app.get("/", (req, res) => {
-    console.log(req.headers);
+    //console.log(req.headers);
     listarUsuarios()
         .then(respuesta => {
             res.render("index", {
@@ -165,10 +165,10 @@ app.delete("/registro/:id", async (req, res) => {
 
 
 /* Ruta /admin para renderizar la vista admin. */
-app.get("/admin", async (req, res) => {
+app.get("/admin", verificarToken, async (req, res) => {
     let usuario = req.body.usuario;
-    console.log(req.body.usuario);
-       if (req.body.usuario !== 'ADMIN') { 
+   // console.log(req.body.usuario);
+       if (req.body.usuario.roles !== 'ADMIN') { 
         //aca hacemos el filtro en el listar
         return res.status(403).send({ message: 'Acceso denegado' });
     }else{
@@ -179,7 +179,7 @@ app.get("/admin", async (req, res) => {
 
 /* Ruta /admin para actualizar el estado de los skaters. */
 app.put('/admin', async (req, res) => {
-    if (skate.rol !== 'ADMIN') { //aca hacemos el filtro para actualizar
+    if (req.body.usuario.roles !== 'ADMIN') { //aca hacemos el filtro para actualizar
         return res.status(403).send({ message: 'Acceso denegado' });
     }
     const { estado, id } = req.body;
@@ -187,6 +187,15 @@ app.put('/admin', async (req, res) => {
     await actualizarEstado(estado, id)
         .then(resultado => res.send(resultado))
         .catch(error => res.status(500).send({code: 500, message: 'Ha ocurrido un error al cambiar el estado en la BD'}));
+});
+
+// Vista de usuario
+app.get("/user", verificarToken, async (req, res) => {
+
+    const userId = req.body.usuario.id; // Suponiendo que el ID del usuario está en el token decodificado
+    const usuario = await buscarUsuarioPorId(userId); // Suponiendo que tienes una función que busca un usuario por ID
+    res.render("user", { usuarios: [usuario] }); // Envía solo los datos del usuario actual a la vista
+    
 });
 
 /* Ruta /logout para destruir y limpiar la sesión.  */

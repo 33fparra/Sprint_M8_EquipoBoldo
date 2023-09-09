@@ -5,10 +5,10 @@ const verificarToken = (req, res, next) => {
 
     // Intenta obtener el token del encabezado 'Authorization'
     const bearerHeader = req.headers["authorization"];
-    console.log("Encabezado Authorization:", bearerHeader);
+   // console.log("Encabezado Authorization:", bearerHeader);
     
     let token;
-    console.log(token)
+   // console.log(token)
     if (bearerHeader && bearerHeader.startsWith('Bearer ')) {
         token = bearerHeader.split(' ')[1];
     }

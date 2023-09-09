@@ -5,9 +5,10 @@ app = express();
 const { create } = require('express-handlebars');
 const expressFileUpload = require('express-fileupload');
 const jwt = require("jsonwebtoken");
-const auth = require("./middleware/auth");
+const verificarToken = require("./middleware/auth");
 const session = require('express-session');
 const fs = require('fs');
+const cors = require('cors');
 
 const { listarUsuarios, 
     loginUsuario, 
@@ -15,13 +16,22 @@ const { listarUsuarios,
     actualizarUsuario,
     eliminarUsuario,
     actualizarEstado,
-    buscarUsuarioPorId } = require('./consultasBD');
+    buscarUsuarioPorId,
+    obtenerRolPorId } = require('./consultasBD');
 
 app.listen(3000, console.log("Servidor corriendo en http://localhost:3000/"));
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use("/assets", express.static(__dirname + "/public/assets"));
+
+app.use(cors({
+    allowedHeaders: ['Authorization', 'Content-Type'],
+    exposedHeaders: ['Authorization'],
+    origin: '*', // o especifica los dominios permitidos
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false
+}));
 
 app.use(expressFileUpload({
     limits: 10000000,
@@ -52,6 +62,7 @@ app.set("views", "./views")
 
 /* Ruta raiz del programa. */
 app.get("/", (req, res) => {
+    console.log(req.headers);
     listarUsuarios()
         .then(respuesta => {
             res.render("index", {
@@ -81,8 +92,11 @@ app.post("/login", (req, res) => {
             expiresIn: 60,
         });
         req.session.email = skater.email;
-        res.send({token: token});
-            
+        req.session.roles = skater.roles;
+        const rol = req.session.roles
+        // console.log(skater)
+        res.send({token: token, rol});
+        console.log(req.headers);    
         })
         .catch(error => {
             res.status(500);
@@ -93,8 +107,9 @@ app.post("/login", (req, res) => {
 
 
 /* Ruta /datos para renderizar la vista datos. */
-app.get("/datos", auth, async (req, res) => {
+app.get("/datos", verificarToken, async (req, res) => {
     let usuario = req.body.usuario;
+    //console.log(req.headers, req.body, req.body.usuario.roles );
     res.render("datos", {
         skater: usuario
     });
@@ -146,15 +161,27 @@ app.delete("/registro/:id", async (req, res) => {
         })
         .catch(error => res.status(500).send({code: 500, message: 'Ha ocurrido un error al eliminar un skater en la BD'}));
 });
+/*RUTA DE USUARIO*/ 
+
 
 /* Ruta /admin para renderizar la vista admin. */
 app.get("/admin", async (req, res) => {
+    let usuario = req.body.usuario;
+    console.log(req.body.usuario);
+       if (req.body.usuario !== 'ADMIN') { 
+        //aca hacemos el filtro en el listar
+        return res.status(403).send({ message: 'Acceso denegado' });
+    }else{
     const usuarios = await listarUsuarios();
-    res.render("Admin", { usuarios })
+    res.render("Admin", { usuarios })}
+   // res.render("Admin", { usuarios, isAdmin: req.user.roles === 'ADMIN' })
 });
 
 /* Ruta /admin para actualizar el estado de los skaters. */
 app.put('/admin', async (req, res) => {
+    if (skate.rol !== 'ADMIN') { //aca hacemos el filtro para actualizar
+        return res.status(403).send({ message: 'Acceso denegado' });
+    }
     const { estado, id } = req.body;
 
     await actualizarEstado(estado, id)

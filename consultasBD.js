@@ -142,7 +142,26 @@ const buscarUsuarioPorId = async (id) => {
     }
 }
 
+const obtenerRolPorId = async (id) => {
+    const consulta = {
+        text: `SELECT roles FROM skaters WHERE id = $1`,
+        values: [id]
+    };
 
+    try {
+        const { rows: [usuario] } = await pool.query(consulta);
+        if (usuario) {
+            console.log("Rol encontrado:", usuario.roles);
+            return usuario.roles;
+        } else {
+            throw new Error("Usuario no encontrado");
+        }
+    } catch (error) {
+        console.log(error.code);
+        console.log(error.message);
+        throw error;
+    }
+}
 
 
 module.exports = {
@@ -152,5 +171,6 @@ module.exports = {
     actualizarUsuario, 
     eliminarUsuario, 
     actualizarEstado, 
-    buscarUsuarioPorId
+    buscarUsuarioPorId,
+    obtenerRolPorId
 }

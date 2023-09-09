@@ -66,6 +66,9 @@
                 const respuesta = await axios.post('/login', formData);
                 localStorage.setItem("token", respuesta.data.token);
                 sessionStorage.setItem('token', respuesta.data.token);
+                localStorage.setItem("rol", respuesta.data.rol);
+                sessionStorage.setItem('rol', respuesta.data.rol);
+
                Swal.fire(
                     'Inicio de sesión correcto',
                     'Bienvenido',

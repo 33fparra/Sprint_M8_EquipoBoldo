@@ -3,9 +3,21 @@ const jwt = require("jsonwebtoken");
 
 const verificarToken = (req, res, next) => {
 
-    const token = req.body.token || req.query.token || req.headers["x-access-token"] || req.headers["authorization"];
-
+    // Intenta obtener el token del encabezado 'Authorization'
+    const bearerHeader = req.headers["authorization"];
+    console.log("Encabezado Authorization:", bearerHeader);
+    
+    let token;
+    console.log(token)
+    if (bearerHeader && bearerHeader.startsWith('Bearer ')) {
+        token = bearerHeader.split(' ')[1];
+    }
+  
     if (!token) {
+        token = req.body.token || req.query.token || req.headers["x-access-token"];
+    }
+    if (!token) {
+
         return res.status(403).send({code: 403, message: "Usted no tiene los permisos necesarios para acceder a la ruta"})
     } else {
         try {
